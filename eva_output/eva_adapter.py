@@ -72,8 +72,8 @@ REGISTRY = {
     "mnist":        ("mnist_modified.py",        "MNIST",        "mnist"),
     "qmnist":       ("qmnist_modified.py",       "QMNIST",       "qmnist"),
     "SVHN":         ("svhn_modified.py",         "SVHN",         "SVHN"),
-    "tinyimagenet": ("tinyimagenet_modified.py", "TinyImageNet", "tinyimagenet"),
-    "mnist2mnistm": ("mnist2mnistm_modified.py", "Mnist2MnistM", "mnist2mnistm"),
+    "tinyimagenet": ("tinyimagenet_modified.py", "TinyImageNet", "TinyImageNet"),
+    "mnist2mnistm": ("mnist2mnistm_modified.py", "Mnist2MnistM", "mnistm"),
     # cifar10 / adult 三个仓库本来就能跑，这里一并登记，方便统一驱动脚本
     "cifar10":      ("cifar10.py",               "CIFAR10",      "cifar10"),
     "adult":        ("adult_modified.py",        "adult",        "adult"),
@@ -83,7 +83,7 @@ REGISTRY = {
     "news":       ("news.py",                       "news",         "news"),
     "imdb":       ("imdb_modified.py",              "imdb",         "imdb"),
     "imdb0":      ("imdb0_modified.py",             "imdb",         "imdb"),
-    "imdb_large": ("imdb_large_modified.py",        "IMDBLarge",    "imdb/imdb_large"),
+    "imdb_large": ("imdb_large_modified.py",        "IMDBLarge",    "IMDB"),
     "imagenet":   ("imagenet100.py",                "ImageNet",     "imagenet100"),
 }
 

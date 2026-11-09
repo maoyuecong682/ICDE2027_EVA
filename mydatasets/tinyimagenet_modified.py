@@ -1,23 +1,7 @@
-"""tinyimagenet_modified.py -- 修正 tinyimagenet.py 的两处问题。
+"""Load TinyImageNet pickles from the caller-provided dataset directory.
 
-【修正 1】目录名大小写硬编码
-tinyimagenet.py 第 57 行函数体里写着：
-    data_path = "/root/autodl-tmp/EVA/data/TinyImageNet"
-而本机数据实际落在 /root/autodl-tmp/EVA/data/tinyimagenet（全小写）。
-大小写敏感的文件系统上两者不是同一个目录，于是 train.pkl 找不到。
-→ 删掉这一行，改用调用方传入的 data_path。
-
-【修正 2】支持 pkl 中存放原始 JPEG 字节
-本容器被 cgroup 限死在 2GB 内存（memory.max = 2147483648）。若 train.pkl
-按“10 万个已解码的 64x64x3 PIL 图像”存储，光列表就约 1.3GB，构建与加载
-时都会越过 2GB 而被 SIGKILL。因此
-`evaluation/build_tinyimagenet_pkl.py` 改为存放**原始 JPEG 字节**
-（train 约 205MB），代价是 `__getitem__` 需要自行解码。
-→ 在取图处插入一个 bytes 分支：Image.open(BytesIO(b)).convert("RGB")。
-  convert("RGB") 同时修掉官方数据里约 0.45% 灰度图（mode='L'）会让
-  ToTensor() 产出单通道、与 channel=3 冲突的问题。
-
-除上述两点外，pkl 读取、downsize、返回顺序与类别映射完全沿用原实现。
+Preserve the original loader's tensors and PIL images. Encoded image bytes
+are also supported and decoded to RGB when accessed.
 """
 import importlib.util
 import os

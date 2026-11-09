@@ -71,10 +71,3 @@ evaluation/matrix/runs/
 **/.env.*
 *.pem
 *.key
-
-# Download-only original datasets
-/data/IMDB/
-/data/TinyImageNet/
-/data/mnistm/
-/mydatasets-dl/cifar10/
-/mydatasets-dl/cifar10.tar.gz
