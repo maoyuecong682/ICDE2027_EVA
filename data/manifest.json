@@ -1,198 +1,797 @@
 {
   "snapshot_date_utc": "2026-11-09T04:07:56.655798+00:00",
-  "scope": "Original EVA data/, mydatasets/adult/, and mydatasets-dl/ from the existing server snapshot. Original directory names and file bytes are preserved.",
+  "updated_at_utc": "2026-11-09T04:28:02.381840+00:00",
+  "scope": "Original EVA files retained byte-for-byte, excluding all contents of the four download-only datasets: IMDB-Large, TinyImageNet, MNIST-M, and CIFAR-10.",
   "excludes": [
     "Operating-system metadata",
     "Jupyter/Python caches",
     "Generated experiment results",
     "Model checkpoints",
-    "Later baseline prepared-data bundle"
+    "Later baseline prepared-data bundle",
+    "All data files belonging to the four download-only datasets"
   ],
   "checks": "SHA256 copy verification for every file; NumPy non-object payload length; Parquet file magic; pickle opcode structure; gzip end-of-stream. Dataset semantics and all file formats have not been fully validated.",
-  "file_count": 18959,
-  "total_bytes": 419259702,
-  "incomplete_original_file_count": 25,
-  "incomplete_original_files": [
+  "file_count": 18907,
+  "total_bytes": 232958582,
+  "bundled_flagged_incomplete_file_count": 0,
+  "excluded_dataset_file_count": 52,
+  "excluded_flagged_incomplete_file_count": 25,
+  "download_sources": [
+    {
+      "dataset": "IMDB-Large (IMDBLargeC5)",
+      "paths": [
+        "data/IMDB/"
+      ],
+      "download_urls": [
+        "https://drive.google.com/file/d/1IglePB_S5l4iDCoEHxdwRn11yuWcUptF/view"
+      ],
+      "source_url": "https://github.com/for0nething/RECON/blob/main/README.md",
+      "format": "IMDB-Large-Class.zip; obtain the prepared IMDBLargeC5 arrays from this upstream release. This is separate from the Stanford movie-review sentiment dataset.",
+      "excluded_file_count": 43
+    },
+    {
+      "dataset": "TinyImageNet",
+      "paths": [
+        "data/TinyImageNet/"
+      ],
+      "download_urls": [
+        "https://cs231n.stanford.edu/tiny-imagenet-200.zip"
+      ],
+      "source_url": "https://cs231n.stanford.edu/",
+      "format": "Original image ZIP. The EVA loader requires preprocessing into train.pkl, valid.pkl, and test.pkl; these are not supplied by the ZIP.",
+      "preprocessing_mirror": "https://huggingface.co/datasets/zh-plus/tiny-imagenet",
+      "excluded_file_count": 5
+    },
+    {
+      "dataset": "MNIST-M",
+      "paths": [
+        "data/mnistm/"
+      ],
+      "download_urls": [
+        "https://huggingface.co/datasets/Mike0307/MNIST-M/resolve/bca0c963fd95756a36b8fbcff13417770310ffb6/data/train-00000-of-00001-571b6b1e2c195186.parquet",
+        "https://huggingface.co/datasets/Mike0307/MNIST-M/resolve/bca0c963fd95756a36b8fbcff13417770310ffb6/data/test-00000-of-00001-ba3ad971b105ff65.parquet"
+      ],
+      "source_url": "https://yaroslav.ganin.net/",
+      "parquet_mirror": "https://huggingface.co/datasets/Mike0307/MNIST-M",
+      "format": "Parquet image/label columns; save the train and test downloads as mnistm_train.parquet and mnistm_test.parquet.",
+      "upstream_revision": "bca0c963fd95756a36b8fbcff13417770310ffb6",
+      "verification": "Both download URLs returned HTTP 206; the first 65536 bytes of each matched the corresponding original server file. This does not verify full-file equivalence.",
+      "excluded_file_count": 2
+    },
+    {
+      "dataset": "CIFAR-10",
+      "paths": [
+        "mydatasets-dl/cifar10/",
+        "mydatasets-dl/cifar10.tar.gz"
+      ],
+      "download_urls": [
+        "https://cave.cs.toronto.edu/kriz/cifar-10-python.tar.gz"
+      ],
+      "source_url": "https://cave.cs.toronto.edu/kriz/cifar.html",
+      "format": "Official Python tar.gz archive; extract for torchvision.datasets.CIFAR10.",
+      "md5": "c58f30108f718f92721af3b95e74349a",
+      "excluded_file_count": 2
+    }
+  ],
+  "excluded_dataset_files": [
     {
       "path": "data/IMDB/IMDBLargeC5-test-X.npy",
-      "size": 5767168,
-      "expected_min_size": 1764626352,
-      "shape": [
-        5379958,
-        41
-      ]
+      "bytes": 5767168,
+      "sha256": "4039d69122e255c158d7f6bc5f606925cb04beb3a20ee540567cff13b0d8d426",
+      "status": "excluded_download_only",
+      "integrity_issue": {
+        "path": "data/IMDB/IMDBLargeC5-test-X.npy",
+        "size": 5767168,
+        "expected_min_size": 1764626352,
+        "shape": [
+          5379958,
+          41
+        ]
+      },
+      "dataset": "IMDB-Large (IMDBLargeC5)",
+      "original_integrity_issue": {
+        "path": "data/IMDB/IMDBLargeC5-test-X.npy",
+        "size": 5767168,
+        "expected_min_size": 1764626352,
+        "shape": [
+          5379958,
+          41
+        ]
+      }
     },
     {
       "path": "data/IMDB/IMDBLargeC5-test-y.npy",
-      "size": 5767168,
-      "expected_min_size": 43039792,
-      "shape": [
-        5379958
-      ]
+      "bytes": 5767168,
+      "sha256": "668e4bf5750568dafbb148858bef28407b05a7d985843b40195a3b1475ec37cf",
+      "status": "excluded_download_only",
+      "integrity_issue": {
+        "path": "data/IMDB/IMDBLargeC5-test-y.npy",
+        "size": 5767168,
+        "expected_min_size": 43039792,
+        "shape": [
+          5379958
+        ]
+      },
+      "dataset": "IMDB-Large (IMDBLargeC5)",
+      "original_integrity_issue": {
+        "path": "data/IMDB/IMDBLargeC5-test-y.npy",
+        "size": 5767168,
+        "expected_min_size": 43039792,
+        "shape": [
+          5379958
+        ]
+      }
     },
     {
       "path": "data/IMDB/IMDBLargeC5-train-X.npy",
-      "size": 6029312,
-      "expected_min_size": 3464122272,
-      "shape": [
-        10561348,
-        41
-      ]
+      "bytes": 6029312,
+      "sha256": "1b28cccddfee4dc761d333bd9cc0c0d15f843e4af82ff8aa91fd55c3faf6a658",
+      "status": "excluded_download_only",
+      "integrity_issue": {
+        "path": "data/IMDB/IMDBLargeC5-train-X.npy",
+        "size": 6029312,
+        "expected_min_size": 3464122272,
+        "shape": [
+          10561348,
+          41
+        ]
+      },
+      "dataset": "IMDB-Large (IMDBLargeC5)",
+      "original_integrity_issue": {
+        "path": "data/IMDB/IMDBLargeC5-train-X.npy",
+        "size": 6029312,
+        "expected_min_size": 3464122272,
+        "shape": [
+          10561348,
+          41
+        ]
+      }
     },
     {
       "path": "data/IMDB/IMDBLargeC5-train-y.npy",
-      "size": 6029312,
-      "expected_min_size": 84490912,
-      "shape": [
-        10561348
-      ]
+      "bytes": 6029312,
+      "sha256": "a6d1eb683c2935a22e9149a5cd157e24054e7aa952911ab116c8b5c831b4909b",
+      "status": "excluded_download_only",
+      "integrity_issue": {
+        "path": "data/IMDB/IMDBLargeC5-train-y.npy",
+        "size": 6029312,
+        "expected_min_size": 84490912,
+        "shape": [
+          10561348
+        ]
+      },
+      "dataset": "IMDB-Large (IMDBLargeC5)",
+      "original_integrity_issue": {
+        "path": "data/IMDB/IMDBLargeC5-train-y.npy",
+        "size": 6029312,
+        "expected_min_size": 84490912,
+        "shape": [
+          10561348
+        ]
+      }
     },
     {
       "path": "data/IMDB/IMDBLargeC5-val-X.npy",
-      "size": 5767168,
-      "expected_min_size": 1758770240,
-      "shape": [
-        5362104,
-        41
-      ]
+      "bytes": 5767168,
+      "sha256": "131a0b118f6a5a2caeea4117f760baeb7a26781e282345c2bd961f91cc98a675",
+      "status": "excluded_download_only",
+      "integrity_issue": {
+        "path": "data/IMDB/IMDBLargeC5-val-X.npy",
+        "size": 5767168,
+        "expected_min_size": 1758770240,
+        "shape": [
+          5362104,
+          41
+        ]
+      },
+      "dataset": "IMDB-Large (IMDBLargeC5)",
+      "original_integrity_issue": {
+        "path": "data/IMDB/IMDBLargeC5-val-X.npy",
+        "size": 5767168,
+        "expected_min_size": 1758770240,
+        "shape": [
+          5362104,
+          41
+        ]
+      }
     },
     {
       "path": "data/IMDB/IMDBLargeC5-val-y.npy",
-      "size": 6029312,
-      "expected_min_size": 42896960,
-      "shape": [
-        5362104
-      ]
+      "bytes": 6029312,
+      "sha256": "65563f125998528dc62f1e8c043b0a4df615bfd9aa49d8fd8c2e8a58d97c009d",
+      "status": "excluded_download_only",
+      "integrity_issue": {
+        "path": "data/IMDB/IMDBLargeC5-val-y.npy",
+        "size": 6029312,
+        "expected_min_size": 42896960,
+        "shape": [
+          5362104
+        ]
+      },
+      "dataset": "IMDB-Large (IMDBLargeC5)",
+      "original_integrity_issue": {
+        "path": "data/IMDB/IMDBLargeC5-val-y.npy",
+        "size": 6029312,
+        "expected_min_size": 42896960,
+        "shape": [
+          5362104
+        ]
+      }
     },
     {
       "path": "data/IMDB/IMDBLargeC5-formycs/idMap.npy",
-      "size": 5505024,
-      "expected_min_size": 168981696,
-      "shape": [
-        10561348,
-        2
-      ]
+      "bytes": 5505024,
+      "sha256": "fe3654693e5417c599178aac14752b5c07bf95263ddd572b6bf261b3b07be630",
+      "status": "excluded_download_only",
+      "integrity_issue": {
+        "path": "data/IMDB/IMDBLargeC5-formycs/idMap.npy",
+        "size": 5505024,
+        "expected_min_size": 168981696,
+        "shape": [
+          10561348,
+          2
+        ]
+      },
+      "dataset": "IMDB-Large (IMDBLargeC5)",
+      "original_integrity_issue": {
+        "path": "data/IMDB/IMDBLargeC5-formycs/idMap.npy",
+        "size": 5505024,
+        "expected_min_size": 168981696,
+        "shape": [
+          10561348,
+          2
+        ]
+      }
+    },
+    {
+      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-0-ci.npy",
+      "bytes": 923312,
+      "sha256": "f9bef44b16a6635c7658fda2a357a183a68e717eb7fbda2f7c98aee48773b00b",
+      "status": "excluded_download_only",
+      "dataset": "IMDB-Large (IMDBLargeC5)"
+    },
+    {
+      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-0-mc.npy",
+      "bytes": 227024,
+      "sha256": "6f8ae048c7e0bcd40b61e7d64a454150785e7ec49a8789367003fcc39944d421",
+      "status": "excluded_download_only",
+      "dataset": "IMDB-Large (IMDBLargeC5)"
+    },
+    {
+      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-0-mi.npy",
+      "bytes": 462208,
+      "sha256": "4ec7c08dd61ddec375cc6c1c132402a870eff3e53886b56536c9494934a3bc3f",
+      "status": "excluded_download_only",
+      "dataset": "IMDB-Large (IMDBLargeC5)"
+    },
+    {
+      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-0-mix.npy",
+      "bytes": 43448,
+      "sha256": "c3a4e22477e90d64151903b4ebe7a8866b0e98220ae1c82115bccb323283f322",
+      "status": "excluded_download_only",
+      "dataset": "IMDB-Large (IMDBLargeC5)"
+    },
+    {
+      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-0-name.npy",
+      "bytes": 778176,
+      "sha256": "68d39449b91be0e98d46ac25c9f624bea99ef192cffffaa8162102bdda3d0622",
+      "status": "excluded_download_only",
+      "dataset": "IMDB-Large (IMDBLargeC5)"
+    },
+    {
+      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-0-title.npy",
+      "bytes": 115648,
+      "sha256": "8aace7d92d58a2ca3d3b33e0512a5268a9d363056f47ab8a6c646cca1b9a95da",
+      "status": "excluded_download_only",
+      "dataset": "IMDB-Large (IMDBLargeC5)"
+    },
+    {
+      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-1-ci.npy",
+      "bytes": 4507808,
+      "sha256": "e21cfc697bffdabdda1b4e8091275daa8c1c6506441935e4f79fc8a67a49592c",
+      "status": "excluded_download_only",
+      "dataset": "IMDB-Large (IMDBLargeC5)"
+    },
+    {
+      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-1-mc.npy",
+      "bytes": 1216280,
+      "sha256": "ed2d40270976ff1c9991eb6ae7431dd7a54534b1671d50792411beedb52990d6",
+      "status": "excluded_download_only",
+      "dataset": "IMDB-Large (IMDBLargeC5)"
+    },
+    {
+      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-1-mi.npy",
+      "bytes": 2012544,
+      "sha256": "5d40367fb02efedfb73ec1053d7c1621259e589e3d51290f94e797def06d4522",
+      "status": "excluded_download_only",
+      "dataset": "IMDB-Large (IMDBLargeC5)"
+    },
+    {
+      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-1-mix.npy",
+      "bytes": 188792,
+      "sha256": "240c69c499b8634582c6c819e3b864a991684ca7925a0f161e7ae7eb411e464c",
+      "status": "excluded_download_only",
+      "dataset": "IMDB-Large (IMDBLargeC5)"
+    },
+    {
+      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-1-name.npy",
+      "bytes": 2820096,
+      "sha256": "07170f27e9bc9c2c78ee586a64b4411af2e8c260ca47b17d2853bea9a94781fb",
+      "status": "excluded_download_only",
+      "dataset": "IMDB-Large (IMDBLargeC5)"
+    },
+    {
+      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-1-title.npy",
+      "bytes": 503232,
+      "sha256": "8df40834fca626c576734323eee19e33d810786c2e4541fc9dee29c2a5593ada",
+      "status": "excluded_download_only",
+      "dataset": "IMDB-Large (IMDBLargeC5)"
     },
     {
       "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-2-ci.npy",
-      "size": 5505024,
-      "expected_min_size": 12064688,
-      "shape": [
-        754035,
-        2
-      ]
+      "bytes": 5505024,
+      "sha256": "ecaf2e674693c8b076390b1383d0fe6d24aec3d47d5ef66bc43670757462eaf3",
+      "status": "excluded_download_only",
+      "integrity_issue": {
+        "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-2-ci.npy",
+        "size": 5505024,
+        "expected_min_size": 12064688,
+        "shape": [
+          754035,
+          2
+        ]
+      },
+      "dataset": "IMDB-Large (IMDBLargeC5)",
+      "original_integrity_issue": {
+        "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-2-ci.npy",
+        "size": 5505024,
+        "expected_min_size": 12064688,
+        "shape": [
+          754035,
+          2
+        ]
+      }
+    },
+    {
+      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-2-mc.npy",
+      "bytes": 3590168,
+      "sha256": "9101c99897d1580f55ec8011e42ca629713d04d84d09cf11938112d53b054c32",
+      "status": "excluded_download_only",
+      "dataset": "IMDB-Large (IMDBLargeC5)"
     },
     {
       "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-2-mi.npy",
-      "size": 4980736,
-      "expected_min_size": 5713280,
-      "shape": [
-        22317,
-        32
-      ]
+      "bytes": 4980736,
+      "sha256": "2845c507b6612e3501194b857fb27a74604e712021061774f3c32f9f566574a9",
+      "status": "excluded_download_only",
+      "integrity_issue": {
+        "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-2-mi.npy",
+        "size": 4980736,
+        "expected_min_size": 5713280,
+        "shape": [
+          22317,
+          32
+        ]
+      },
+      "dataset": "IMDB-Large (IMDBLargeC5)",
+      "original_integrity_issue": {
+        "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-2-mi.npy",
+        "size": 4980736,
+        "expected_min_size": 5713280,
+        "shape": [
+          22317,
+          32
+        ]
+      }
+    },
+    {
+      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-2-mix.npy",
+      "bytes": 535736,
+      "sha256": "6e4e675b373789c82b710c3691db53a4e2bbe3a632b974c618ed87f58ee3f6f5",
+      "status": "excluded_download_only",
+      "dataset": "IMDB-Large (IMDBLargeC5)"
     },
     {
       "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-2-name.npy",
-      "size": 5505024,
-      "expected_min_size": 5579680,
-      "shape": [
-        348722,
-        2
-      ]
+      "bytes": 5505024,
+      "sha256": "2dbefd0cd888287a8295d1c94980e3d0e03858d2c5e4491cf653253eafed1412",
+      "status": "excluded_download_only",
+      "integrity_issue": {
+        "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-2-name.npy",
+        "size": 5505024,
+        "expected_min_size": 5579680,
+        "shape": [
+          348722,
+          2
+        ]
+      },
+      "dataset": "IMDB-Large (IMDBLargeC5)",
+      "original_integrity_issue": {
+        "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-2-name.npy",
+        "size": 5505024,
+        "expected_min_size": 5579680,
+        "shape": [
+          348722,
+          2
+        ]
+      }
+    },
+    {
+      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-2-title.npy",
+      "bytes": 1428416,
+      "sha256": "2856e66fe8f09027679f297c1c966069278b24c2ef837a6129ffb729764f4924",
+      "status": "excluded_download_only",
+      "dataset": "IMDB-Large (IMDBLargeC5)"
+    },
+    {
+      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-3-ci.npy",
+      "bytes": 1809968,
+      "sha256": "31dfcccc58db18208050997c129123f4c1ea5d981c2b39d07fa02b76cb4dba08",
+      "status": "excluded_download_only",
+      "dataset": "IMDB-Large (IMDBLargeC5)"
+    },
+    {
+      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-3-mc.npy",
+      "bytes": 739640,
+      "sha256": "da799a7df1a395faedb56e41ea6e9cbedc50e6017b2318a94f2ca0eb8af26518",
+      "status": "excluded_download_only",
+      "dataset": "IMDB-Large (IMDBLargeC5)"
+    },
+    {
+      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-3-mi.npy",
+      "bytes": 1001600,
+      "sha256": "bdbbe67fbcce8bc660bec33df0a58f697164942f19016ae79f28b9f9933cb75f",
+      "status": "excluded_download_only",
+      "dataset": "IMDB-Large (IMDBLargeC5)"
+    },
+    {
+      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-3-mix.npy",
+      "bytes": 94016,
+      "sha256": "e7f3282942443b641a16409198baca8a1761885befd40d00c9aa84f137758d7d",
+      "status": "excluded_download_only",
+      "dataset": "IMDB-Large (IMDBLargeC5)"
+    },
+    {
+      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-3-name.npy",
+      "bytes": 1301056,
+      "sha256": "4af1e8cb322a7e81557a9684b5e15570199e5ba3d3aa9017ddd886241dde7b51",
+      "status": "excluded_download_only",
+      "dataset": "IMDB-Large (IMDBLargeC5)"
+    },
+    {
+      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-3-title.npy",
+      "bytes": 250496,
+      "sha256": "34db860a03ecb637eda2e29540b5f0a17f3803c86638daee8b4c0cae56c478e4",
+      "status": "excluded_download_only",
+      "dataset": "IMDB-Large (IMDBLargeC5)"
+    },
+    {
+      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-4-ci.npy",
+      "bytes": 9072,
+      "sha256": "720f69073f75d97e4a8d697281ae3b8f4157f0ed9a54ebb2cdf174384eddb3fd",
+      "status": "excluded_download_only",
+      "dataset": "IMDB-Large (IMDBLargeC5)"
+    },
+    {
+      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-4-mc.npy",
+      "bytes": 848,
+      "sha256": "d9415a5d7013870bef61649c2783db694d4525919862f7cc4af986fedbf2eeb4",
+      "status": "excluded_download_only",
+      "dataset": "IMDB-Large (IMDBLargeC5)"
+    },
+    {
+      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-4-mi.npy",
+      "bytes": 1664,
+      "sha256": "9c36019470ef10e856cc3f7121b5fa47aea670b273c572c7ea0f3ed5781d8b06",
+      "status": "excluded_download_only",
+      "dataset": "IMDB-Large (IMDBLargeC5)"
+    },
+    {
+      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-4-mix.npy",
+      "bytes": 272,
+      "sha256": "6c1715629987fce832c786c5cbe3521e7cf6489bc3bf2a4e44132249863a3fec",
+      "status": "excluded_download_only",
+      "dataset": "IMDB-Large (IMDBLargeC5)"
+    },
+    {
+      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-4-name.npy",
+      "bytes": 8528,
+      "sha256": "1067670ba6603bd07eb4c5df0b29e256ae88a89048bf40880d3fecf6830095ff",
+      "status": "excluded_download_only",
+      "dataset": "IMDB-Large (IMDBLargeC5)"
+    },
+    {
+      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-4-title.npy",
+      "bytes": 512,
+      "sha256": "907d7ff3128fc4a82a47599e83fa5f56f4dbfeb8ba37a29bbd5109fb1bd29772",
+      "status": "excluded_download_only",
+      "dataset": "IMDB-Large (IMDBLargeC5)"
     },
     {
       "path": "data/IMDB/new/IMDBLargeC5-test-X.npy",
-      "size": 5505024,
-      "expected_min_size": 1764626352,
-      "shape": [
-        5379958,
-        41
-      ]
+      "bytes": 5505024,
+      "sha256": "2b3f45b1cc56fc4a60446d90459b55983abecbb757af8cae7a5be39e21b8eb50",
+      "status": "excluded_download_only",
+      "integrity_issue": {
+        "path": "data/IMDB/new/IMDBLargeC5-test-X.npy",
+        "size": 5505024,
+        "expected_min_size": 1764626352,
+        "shape": [
+          5379958,
+          41
+        ]
+      },
+      "dataset": "IMDB-Large (IMDBLargeC5)",
+      "original_integrity_issue": {
+        "path": "data/IMDB/new/IMDBLargeC5-test-X.npy",
+        "size": 5505024,
+        "expected_min_size": 1764626352,
+        "shape": [
+          5379958,
+          41
+        ]
+      }
     },
     {
       "path": "data/IMDB/new/IMDBLargeC5-test-y.npy",
-      "size": 5505024,
-      "expected_min_size": 43039792,
-      "shape": [
-        5379958
-      ]
+      "bytes": 5505024,
+      "sha256": "8d90d29c3087e7842a252fafa2564f7f24783edd9364533f8afbfa9aa29af835",
+      "status": "excluded_download_only",
+      "integrity_issue": {
+        "path": "data/IMDB/new/IMDBLargeC5-test-y.npy",
+        "size": 5505024,
+        "expected_min_size": 43039792,
+        "shape": [
+          5379958
+        ]
+      },
+      "dataset": "IMDB-Large (IMDBLargeC5)",
+      "original_integrity_issue": {
+        "path": "data/IMDB/new/IMDBLargeC5-test-y.npy",
+        "size": 5505024,
+        "expected_min_size": 43039792,
+        "shape": [
+          5379958
+        ]
+      }
     },
     {
       "path": "data/IMDB/new/IMDBLargeC5-train-X.npy",
-      "size": 5242880,
-      "expected_min_size": 3464122272,
-      "shape": [
-        10561348,
-        41
-      ]
+      "bytes": 5242880,
+      "sha256": "660811f32a7ac9f521efec69fc7ecb17e7039499986b7c614d935274cc57aaa3",
+      "status": "excluded_download_only",
+      "integrity_issue": {
+        "path": "data/IMDB/new/IMDBLargeC5-train-X.npy",
+        "size": 5242880,
+        "expected_min_size": 3464122272,
+        "shape": [
+          10561348,
+          41
+        ]
+      },
+      "dataset": "IMDB-Large (IMDBLargeC5)",
+      "original_integrity_issue": {
+        "path": "data/IMDB/new/IMDBLargeC5-train-X.npy",
+        "size": 5242880,
+        "expected_min_size": 3464122272,
+        "shape": [
+          10561348,
+          41
+        ]
+      }
     },
     {
       "path": "data/IMDB/new/IMDBLargeC5-train-y.npy",
-      "size": 5505024,
-      "expected_min_size": 84490912,
-      "shape": [
-        10561348
-      ]
+      "bytes": 5505024,
+      "sha256": "ee8dbc1faf981132b29a4688ac4d3d6849de124818d8911fba2e2be5b89e3218",
+      "status": "excluded_download_only",
+      "integrity_issue": {
+        "path": "data/IMDB/new/IMDBLargeC5-train-y.npy",
+        "size": 5505024,
+        "expected_min_size": 84490912,
+        "shape": [
+          10561348
+        ]
+      },
+      "dataset": "IMDB-Large (IMDBLargeC5)",
+      "original_integrity_issue": {
+        "path": "data/IMDB/new/IMDBLargeC5-train-y.npy",
+        "size": 5505024,
+        "expected_min_size": 84490912,
+        "shape": [
+          10561348
+        ]
+      }
     },
     {
       "path": "data/IMDB/new/IMDBLargeC5-val-X.npy",
-      "size": 5505024,
-      "expected_min_size": 1758770240,
-      "shape": [
-        5362104,
-        41
-      ]
+      "bytes": 5505024,
+      "sha256": "b310cff7d92e5c8f66c414c71f03ad403b12f541ac5c0de83f9c2c4fbdfb566d",
+      "status": "excluded_download_only",
+      "integrity_issue": {
+        "path": "data/IMDB/new/IMDBLargeC5-val-X.npy",
+        "size": 5505024,
+        "expected_min_size": 1758770240,
+        "shape": [
+          5362104,
+          41
+        ]
+      },
+      "dataset": "IMDB-Large (IMDBLargeC5)",
+      "original_integrity_issue": {
+        "path": "data/IMDB/new/IMDBLargeC5-val-X.npy",
+        "size": 5505024,
+        "expected_min_size": 1758770240,
+        "shape": [
+          5362104,
+          41
+        ]
+      }
     },
     {
       "path": "data/IMDB/new/IMDBLargeC5-val-y.npy",
-      "size": 5505024,
-      "expected_min_size": 42896960,
-      "shape": [
-        5362104
-      ]
-    },
-    {
-      "path": "data/mnistm/mnistm_test.parquet",
-      "error": "Parquet header/footer missing"
-    },
-    {
-      "path": "data/mnistm/mnistm_train.parquet",
-      "error": "Parquet header/footer missing"
+      "bytes": 5505024,
+      "sha256": "6b5c0bd644f5adf80e41e6d65e540fa591356891716133d489400fea255402fe",
+      "status": "excluded_download_only",
+      "integrity_issue": {
+        "path": "data/IMDB/new/IMDBLargeC5-val-y.npy",
+        "size": 5505024,
+        "expected_min_size": 42896960,
+        "shape": [
+          5362104
+        ]
+      },
+      "dataset": "IMDB-Large (IMDBLargeC5)",
+      "original_integrity_issue": {
+        "path": "data/IMDB/new/IMDBLargeC5-val-y.npy",
+        "size": 5505024,
+        "expected_min_size": 42896960,
+        "shape": [
+          5362104
+        ]
+      }
     },
     {
       "path": "data/TinyImageNet/test.pkl",
-      "error": "ValueError: expected 61440243 bytes in a bytes4, but only 6029235 remain"
+      "bytes": 6029312,
+      "sha256": "34694ef1f5085b16431988ee0c22a4482653d1d6db6d43659f43a79915927e6b",
+      "status": "excluded_download_only",
+      "integrity_issue": {
+        "path": "data/TinyImageNet/test.pkl",
+        "error": "ValueError: expected 61440243 bytes in a bytes4, but only 6029235 remain"
+      },
+      "dataset": "TinyImageNet",
+      "original_integrity_issue": {
+        "path": "data/TinyImageNet/test.pkl",
+        "error": "ValueError: expected 61440243 bytes in a bytes4, but only 6029235 remain"
+      }
     },
     {
       "path": "data/TinyImageNet/train.pkl",
-      "error": "ValueError: expected 1228800243 bytes in a bytes4, but only 6029235 remain"
+      "bytes": 6029312,
+      "sha256": "1e678812dc4e80b00c84ff7d9901b91dce9e3ddd8b0d2bb16dfae851c1953820",
+      "status": "excluded_download_only",
+      "integrity_issue": {
+        "path": "data/TinyImageNet/train.pkl",
+        "error": "ValueError: expected 1228800243 bytes in a bytes4, but only 6029235 remain"
+      },
+      "dataset": "TinyImageNet",
+      "original_integrity_issue": {
+        "path": "data/TinyImageNet/train.pkl",
+        "error": "ValueError: expected 1228800243 bytes in a bytes4, but only 6029235 remain"
+      }
     },
     {
       "path": "data/TinyImageNet/train0.pkl",
-      "error": "ValueError: expected 1228800241 bytes in a bytes4, but only 6029235 remain"
+      "bytes": 6029312,
+      "sha256": "9f957eea78f5e7a323fb0c46dfb631e7b052bf027611b4d734dd1d80c1d94b1e",
+      "status": "excluded_download_only",
+      "integrity_issue": {
+        "path": "data/TinyImageNet/train0.pkl",
+        "error": "ValueError: expected 1228800241 bytes in a bytes4, but only 6029235 remain"
+      },
+      "dataset": "TinyImageNet",
+      "original_integrity_issue": {
+        "path": "data/TinyImageNet/train0.pkl",
+        "error": "ValueError: expected 1228800241 bytes in a bytes4, but only 6029235 remain"
+      }
     },
     {
       "path": "data/TinyImageNet/val.pkl",
-      "error": "ValueError: expected 122880241 bytes in a bytes4, but only 5767091 remain"
+      "bytes": 5767168,
+      "sha256": "96a1773869b613fc595badbcb259181bf028dce58386e1829f97ff9c2302c111",
+      "status": "excluded_download_only",
+      "integrity_issue": {
+        "path": "data/TinyImageNet/val.pkl",
+        "error": "ValueError: expected 122880241 bytes in a bytes4, but only 5767091 remain"
+      },
+      "dataset": "TinyImageNet",
+      "original_integrity_issue": {
+        "path": "data/TinyImageNet/val.pkl",
+        "error": "ValueError: expected 122880241 bytes in a bytes4, but only 5767091 remain"
+      }
     },
     {
       "path": "data/TinyImageNet/valid.pkl",
-      "error": "ValueError: expected 61440243 bytes in a bytes4, but only 6029235 remain"
+      "bytes": 6029312,
+      "sha256": "634132c750f638f91c83d82361c2b24ac90bc5825770d2d4084f8f3395923952",
+      "status": "excluded_download_only",
+      "integrity_issue": {
+        "path": "data/TinyImageNet/valid.pkl",
+        "error": "ValueError: expected 61440243 bytes in a bytes4, but only 6029235 remain"
+      },
+      "dataset": "TinyImageNet",
+      "original_integrity_issue": {
+        "path": "data/TinyImageNet/valid.pkl",
+        "error": "ValueError: expected 61440243 bytes in a bytes4, but only 6029235 remain"
+      }
     },
     {
-      "path": "mydatasets-dl/cifar10/cifar-10-python.tar.gz",
-      "error": "EOFError: Compressed file ended before the end-of-stream marker was reached"
+      "path": "data/mnistm/mnistm_test.parquet",
+      "bytes": 5767168,
+      "sha256": "7777e39b712391ed38076d8344e26711b226a3d6271c9e18d0455c34ceae1308",
+      "status": "excluded_download_only",
+      "integrity_issue": {
+        "path": "data/mnistm/mnistm_test.parquet",
+        "error": "Parquet header/footer missing"
+      },
+      "dataset": "MNIST-M",
+      "original_integrity_issue": {
+        "path": "data/mnistm/mnistm_test.parquet",
+        "error": "Parquet header/footer missing"
+      }
+    },
+    {
+      "path": "data/mnistm/mnistm_train.parquet",
+      "bytes": 5767168,
+      "sha256": "5b42a063ce8fa4520728c71fb150df8d87b60a2f128b79b74eb6d25d20e5dfc5",
+      "status": "excluded_download_only",
+      "integrity_issue": {
+        "path": "data/mnistm/mnistm_train.parquet",
+        "error": "Parquet header/footer missing"
+      },
+      "dataset": "MNIST-M",
+      "original_integrity_issue": {
+        "path": "data/mnistm/mnistm_train.parquet",
+        "error": "Parquet header/footer missing"
+      }
     },
     {
       "path": "mydatasets-dl/cifar10.tar.gz",
-      "error": "EOFError: Compressed file ended before the end-of-stream marker was reached"
+      "bytes": 10637312,
+      "sha256": "2ad41404b1658d3acd0f78e8bee93c2b335451947a17447cebd659988d81a5a0",
+      "status": "excluded_download_only",
+      "integrity_issue": {
+        "path": "mydatasets-dl/cifar10.tar.gz",
+        "error": "EOFError: Compressed file ended before the end-of-stream marker was reached"
+      },
+      "dataset": "CIFAR-10",
+      "original_integrity_issue": {
+        "path": "mydatasets-dl/cifar10.tar.gz",
+        "error": "EOFError: Compressed file ended before the end-of-stream marker was reached"
+      }
+    },
+    {
+      "path": "mydatasets-dl/cifar10/cifar-10-python.tar.gz",
+      "bytes": 20021248,
+      "sha256": "d00d856a31cb44dbddb5abc031695ba02c7f2a5c857973911a4d263cf09b2ca7",
+      "status": "excluded_download_only",
+      "integrity_issue": {
+        "path": "mydatasets-dl/cifar10/cifar-10-python.tar.gz",
+        "error": "EOFError: Compressed file ended before the end-of-stream marker was reached"
+      },
+      "dataset": "CIFAR-10",
+      "original_integrity_issue": {
+        "path": "mydatasets-dl/cifar10/cifar-10-python.tar.gz",
+        "error": "EOFError: Compressed file ended before the end-of-stream marker was reached"
+      }
     }
   ],
   "directories": [
     {
       "directory": "data",
-      "files": 92,
-      "bytes": 180423978
+      "files": 42,
+      "bytes": 24781418
     },
     {
       "directory": "mydatasets/adult",
@@ -201,8 +800,8 @@
     },
     {
       "directory": "mydatasets-dl",
-      "files": 18865,
-      "bytes": 233351303
+      "files": 18863,
+      "bytes": 202692743
     }
   ],
   "files": [
@@ -429,452 +1028,6 @@
       "status": "copied_without_flagged_structural_issue"
     },
     {
-      "path": "data/IMDB/IMDBLargeC5-test-X.npy",
-      "bytes": 5767168,
-      "sha256": "4039d69122e255c158d7f6bc5f606925cb04beb3a20ee540567cff13b0d8d426",
-      "status": "incomplete_original_file",
-      "integrity_issue": {
-        "path": "data/IMDB/IMDBLargeC5-test-X.npy",
-        "size": 5767168,
-        "expected_min_size": 1764626352,
-        "shape": [
-          5379958,
-          41
-        ]
-      }
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-test-y.npy",
-      "bytes": 5767168,
-      "sha256": "668e4bf5750568dafbb148858bef28407b05a7d985843b40195a3b1475ec37cf",
-      "status": "incomplete_original_file",
-      "integrity_issue": {
-        "path": "data/IMDB/IMDBLargeC5-test-y.npy",
-        "size": 5767168,
-        "expected_min_size": 43039792,
-        "shape": [
-          5379958
-        ]
-      }
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-train-X.npy",
-      "bytes": 6029312,
-      "sha256": "1b28cccddfee4dc761d333bd9cc0c0d15f843e4af82ff8aa91fd55c3faf6a658",
-      "status": "incomplete_original_file",
-      "integrity_issue": {
-        "path": "data/IMDB/IMDBLargeC5-train-X.npy",
-        "size": 6029312,
-        "expected_min_size": 3464122272,
-        "shape": [
-          10561348,
-          41
-        ]
-      }
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-train-y.npy",
-      "bytes": 6029312,
-      "sha256": "a6d1eb683c2935a22e9149a5cd157e24054e7aa952911ab116c8b5c831b4909b",
-      "status": "incomplete_original_file",
-      "integrity_issue": {
-        "path": "data/IMDB/IMDBLargeC5-train-y.npy",
-        "size": 6029312,
-        "expected_min_size": 84490912,
-        "shape": [
-          10561348
-        ]
-      }
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-val-X.npy",
-      "bytes": 5767168,
-      "sha256": "131a0b118f6a5a2caeea4117f760baeb7a26781e282345c2bd961f91cc98a675",
-      "status": "incomplete_original_file",
-      "integrity_issue": {
-        "path": "data/IMDB/IMDBLargeC5-val-X.npy",
-        "size": 5767168,
-        "expected_min_size": 1758770240,
-        "shape": [
-          5362104,
-          41
-        ]
-      }
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-val-y.npy",
-      "bytes": 6029312,
-      "sha256": "65563f125998528dc62f1e8c043b0a4df615bfd9aa49d8fd8c2e8a58d97c009d",
-      "status": "incomplete_original_file",
-      "integrity_issue": {
-        "path": "data/IMDB/IMDBLargeC5-val-y.npy",
-        "size": 6029312,
-        "expected_min_size": 42896960,
-        "shape": [
-          5362104
-        ]
-      }
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/idMap.npy",
-      "bytes": 5505024,
-      "sha256": "fe3654693e5417c599178aac14752b5c07bf95263ddd572b6bf261b3b07be630",
-      "status": "incomplete_original_file",
-      "integrity_issue": {
-        "path": "data/IMDB/IMDBLargeC5-formycs/idMap.npy",
-        "size": 5505024,
-        "expected_min_size": 168981696,
-        "shape": [
-          10561348,
-          2
-        ]
-      }
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-0-ci.npy",
-      "bytes": 923312,
-      "sha256": "f9bef44b16a6635c7658fda2a357a183a68e717eb7fbda2f7c98aee48773b00b",
-      "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-0-mc.npy",
-      "bytes": 227024,
-      "sha256": "6f8ae048c7e0bcd40b61e7d64a454150785e7ec49a8789367003fcc39944d421",
-      "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-0-mi.npy",
-      "bytes": 462208,
-      "sha256": "4ec7c08dd61ddec375cc6c1c132402a870eff3e53886b56536c9494934a3bc3f",
-      "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-0-mix.npy",
-      "bytes": 43448,
-      "sha256": "c3a4e22477e90d64151903b4ebe7a8866b0e98220ae1c82115bccb323283f322",
-      "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-0-name.npy",
-      "bytes": 778176,
-      "sha256": "68d39449b91be0e98d46ac25c9f624bea99ef192cffffaa8162102bdda3d0622",
-      "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-0-title.npy",
-      "bytes": 115648,
-      "sha256": "8aace7d92d58a2ca3d3b33e0512a5268a9d363056f47ab8a6c646cca1b9a95da",
-      "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-1-ci.npy",
-      "bytes": 4507808,
-      "sha256": "e21cfc697bffdabdda1b4e8091275daa8c1c6506441935e4f79fc8a67a49592c",
-      "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-1-mc.npy",
-      "bytes": 1216280,
-      "sha256": "ed2d40270976ff1c9991eb6ae7431dd7a54534b1671d50792411beedb52990d6",
-      "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-1-mi.npy",
-      "bytes": 2012544,
-      "sha256": "5d40367fb02efedfb73ec1053d7c1621259e589e3d51290f94e797def06d4522",
-      "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-1-mix.npy",
-      "bytes": 188792,
-      "sha256": "240c69c499b8634582c6c819e3b864a991684ca7925a0f161e7ae7eb411e464c",
-      "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-1-name.npy",
-      "bytes": 2820096,
-      "sha256": "07170f27e9bc9c2c78ee586a64b4411af2e8c260ca47b17d2853bea9a94781fb",
-      "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-1-title.npy",
-      "bytes": 503232,
-      "sha256": "8df40834fca626c576734323eee19e33d810786c2e4541fc9dee29c2a5593ada",
-      "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-2-ci.npy",
-      "bytes": 5505024,
-      "sha256": "ecaf2e674693c8b076390b1383d0fe6d24aec3d47d5ef66bc43670757462eaf3",
-      "status": "incomplete_original_file",
-      "integrity_issue": {
-        "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-2-ci.npy",
-        "size": 5505024,
-        "expected_min_size": 12064688,
-        "shape": [
-          754035,
-          2
-        ]
-      }
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-2-mc.npy",
-      "bytes": 3590168,
-      "sha256": "9101c99897d1580f55ec8011e42ca629713d04d84d09cf11938112d53b054c32",
-      "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-2-mi.npy",
-      "bytes": 4980736,
-      "sha256": "2845c507b6612e3501194b857fb27a74604e712021061774f3c32f9f566574a9",
-      "status": "incomplete_original_file",
-      "integrity_issue": {
-        "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-2-mi.npy",
-        "size": 4980736,
-        "expected_min_size": 5713280,
-        "shape": [
-          22317,
-          32
-        ]
-      }
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-2-mix.npy",
-      "bytes": 535736,
-      "sha256": "6e4e675b373789c82b710c3691db53a4e2bbe3a632b974c618ed87f58ee3f6f5",
-      "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-2-name.npy",
-      "bytes": 5505024,
-      "sha256": "2dbefd0cd888287a8295d1c94980e3d0e03858d2c5e4491cf653253eafed1412",
-      "status": "incomplete_original_file",
-      "integrity_issue": {
-        "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-2-name.npy",
-        "size": 5505024,
-        "expected_min_size": 5579680,
-        "shape": [
-          348722,
-          2
-        ]
-      }
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-2-title.npy",
-      "bytes": 1428416,
-      "sha256": "2856e66fe8f09027679f297c1c966069278b24c2ef837a6129ffb729764f4924",
-      "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-3-ci.npy",
-      "bytes": 1809968,
-      "sha256": "31dfcccc58db18208050997c129123f4c1ea5d981c2b39d07fa02b76cb4dba08",
-      "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-3-mc.npy",
-      "bytes": 739640,
-      "sha256": "da799a7df1a395faedb56e41ea6e9cbedc50e6017b2318a94f2ca0eb8af26518",
-      "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-3-mi.npy",
-      "bytes": 1001600,
-      "sha256": "bdbbe67fbcce8bc660bec33df0a58f697164942f19016ae79f28b9f9933cb75f",
-      "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-3-mix.npy",
-      "bytes": 94016,
-      "sha256": "e7f3282942443b641a16409198baca8a1761885befd40d00c9aa84f137758d7d",
-      "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-3-name.npy",
-      "bytes": 1301056,
-      "sha256": "4af1e8cb322a7e81557a9684b5e15570199e5ba3d3aa9017ddd886241dde7b51",
-      "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-3-title.npy",
-      "bytes": 250496,
-      "sha256": "34db860a03ecb637eda2e29540b5f0a17f3803c86638daee8b4c0cae56c478e4",
-      "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-4-ci.npy",
-      "bytes": 9072,
-      "sha256": "720f69073f75d97e4a8d697281ae3b8f4157f0ed9a54ebb2cdf174384eddb3fd",
-      "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-4-mc.npy",
-      "bytes": 848,
-      "sha256": "d9415a5d7013870bef61649c2783db694d4525919862f7cc4af986fedbf2eeb4",
-      "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-4-mi.npy",
-      "bytes": 1664,
-      "sha256": "9c36019470ef10e856cc3f7121b5fa47aea670b273c572c7ea0f3ed5781d8b06",
-      "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-4-mix.npy",
-      "bytes": 272,
-      "sha256": "6c1715629987fce832c786c5cbe3521e7cf6489bc3bf2a4e44132249863a3fec",
-      "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-4-name.npy",
-      "bytes": 8528,
-      "sha256": "1067670ba6603bd07eb4c5df0b29e256ae88a89048bf40880d3fecf6830095ff",
-      "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "data/IMDB/IMDBLargeC5-formycs/train-cate-4-title.npy",
-      "bytes": 512,
-      "sha256": "907d7ff3128fc4a82a47599e83fa5f56f4dbfeb8ba37a29bbd5109fb1bd29772",
-      "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "data/IMDB/new/IMDBLargeC5-test-X.npy",
-      "bytes": 5505024,
-      "sha256": "2b3f45b1cc56fc4a60446d90459b55983abecbb757af8cae7a5be39e21b8eb50",
-      "status": "incomplete_original_file",
-      "integrity_issue": {
-        "path": "data/IMDB/new/IMDBLargeC5-test-X.npy",
-        "size": 5505024,
-        "expected_min_size": 1764626352,
-        "shape": [
-          5379958,
-          41
-        ]
-      }
-    },
-    {
-      "path": "data/IMDB/new/IMDBLargeC5-test-y.npy",
-      "bytes": 5505024,
-      "sha256": "8d90d29c3087e7842a252fafa2564f7f24783edd9364533f8afbfa9aa29af835",
-      "status": "incomplete_original_file",
-      "integrity_issue": {
-        "path": "data/IMDB/new/IMDBLargeC5-test-y.npy",
-        "size": 5505024,
-        "expected_min_size": 43039792,
-        "shape": [
-          5379958
-        ]
-      }
-    },
-    {
-      "path": "data/IMDB/new/IMDBLargeC5-train-X.npy",
-      "bytes": 5242880,
-      "sha256": "660811f32a7ac9f521efec69fc7ecb17e7039499986b7c614d935274cc57aaa3",
-      "status": "incomplete_original_file",
-      "integrity_issue": {
-        "path": "data/IMDB/new/IMDBLargeC5-train-X.npy",
-        "size": 5242880,
-        "expected_min_size": 3464122272,
-        "shape": [
-          10561348,
-          41
-        ]
-      }
-    },
-    {
-      "path": "data/IMDB/new/IMDBLargeC5-train-y.npy",
-      "bytes": 5505024,
-      "sha256": "ee8dbc1faf981132b29a4688ac4d3d6849de124818d8911fba2e2be5b89e3218",
-      "status": "incomplete_original_file",
-      "integrity_issue": {
-        "path": "data/IMDB/new/IMDBLargeC5-train-y.npy",
-        "size": 5505024,
-        "expected_min_size": 84490912,
-        "shape": [
-          10561348
-        ]
-      }
-    },
-    {
-      "path": "data/IMDB/new/IMDBLargeC5-val-X.npy",
-      "bytes": 5505024,
-      "sha256": "b310cff7d92e5c8f66c414c71f03ad403b12f541ac5c0de83f9c2c4fbdfb566d",
-      "status": "incomplete_original_file",
-      "integrity_issue": {
-        "path": "data/IMDB/new/IMDBLargeC5-val-X.npy",
-        "size": 5505024,
-        "expected_min_size": 1758770240,
-        "shape": [
-          5362104,
-          41
-        ]
-      }
-    },
-    {
-      "path": "data/IMDB/new/IMDBLargeC5-val-y.npy",
-      "bytes": 5505024,
-      "sha256": "6b5c0bd644f5adf80e41e6d65e540fa591356891716133d489400fea255402fe",
-      "status": "incomplete_original_file",
-      "integrity_issue": {
-        "path": "data/IMDB/new/IMDBLargeC5-val-y.npy",
-        "size": 5505024,
-        "expected_min_size": 42896960,
-        "shape": [
-          5362104
-        ]
-      }
-    },
-    {
-      "path": "data/TinyImageNet/test.pkl",
-      "bytes": 6029312,
-      "sha256": "34694ef1f5085b16431988ee0c22a4482653d1d6db6d43659f43a79915927e6b",
-      "status": "incomplete_original_file",
-      "integrity_issue": {
-        "path": "data/TinyImageNet/test.pkl",
-        "error": "ValueError: expected 61440243 bytes in a bytes4, but only 6029235 remain"
-      }
-    },
-    {
-      "path": "data/TinyImageNet/train.pkl",
-      "bytes": 6029312,
-      "sha256": "1e678812dc4e80b00c84ff7d9901b91dce9e3ddd8b0d2bb16dfae851c1953820",
-      "status": "incomplete_original_file",
-      "integrity_issue": {
-        "path": "data/TinyImageNet/train.pkl",
-        "error": "ValueError: expected 1228800243 bytes in a bytes4, but only 6029235 remain"
-      }
-    },
-    {
-      "path": "data/TinyImageNet/train0.pkl",
-      "bytes": 6029312,
-      "sha256": "9f957eea78f5e7a323fb0c46dfb631e7b052bf027611b4d734dd1d80c1d94b1e",
-      "status": "incomplete_original_file",
-      "integrity_issue": {
-        "path": "data/TinyImageNet/train0.pkl",
-        "error": "ValueError: expected 1228800241 bytes in a bytes4, but only 6029235 remain"
-      }
-    },
-    {
-      "path": "data/TinyImageNet/val.pkl",
-      "bytes": 5767168,
-      "sha256": "96a1773869b613fc595badbcb259181bf028dce58386e1829f97ff9c2302c111",
-      "status": "incomplete_original_file",
-      "integrity_issue": {
-        "path": "data/TinyImageNet/val.pkl",
-        "error": "ValueError: expected 122880241 bytes in a bytes4, but only 5767091 remain"
-      }
-    },
-    {
-      "path": "data/TinyImageNet/valid.pkl",
-      "bytes": 6029312,
-      "sha256": "634132c750f638f91c83d82361c2b24ac90bc5825770d2d4084f8f3395923952",
-      "status": "incomplete_original_file",
-      "integrity_issue": {
-        "path": "data/TinyImageNet/valid.pkl",
-        "error": "ValueError: expected 61440243 bytes in a bytes4, but only 6029235 remain"
-      }
-    },
-    {
       "path": "data/bike/bike.csv",
       "bytes": 1266442,
       "sha256": "87aa2485afed151899a76a8c4e111a8885a01e355977070b4dbbf85d618a7bd3",
@@ -905,26 +1058,6 @@
       "status": "copied_without_flagged_structural_issue"
     },
     {
-      "path": "data/mnistm/mnistm_test.parquet",
-      "bytes": 5767168,
-      "sha256": "7777e39b712391ed38076d8344e26711b226a3d6271c9e18d0455c34ceae1308",
-      "status": "incomplete_original_file",
-      "integrity_issue": {
-        "path": "data/mnistm/mnistm_test.parquet",
-        "error": "Parquet header/footer missing"
-      }
-    },
-    {
-      "path": "data/mnistm/mnistm_train.parquet",
-      "bytes": 5767168,
-      "sha256": "5b42a063ce8fa4520728c71fb150df8d87b60a2f128b79b74eb6d25d20e5dfc5",
-      "status": "incomplete_original_file",
-      "integrity_issue": {
-        "path": "data/mnistm/mnistm_train.parquet",
-        "error": "Parquet header/footer missing"
-      }
-    },
-    {
       "path": "mydatasets/adult/test.csv",
       "bytes": 1827886,
       "sha256": "2176389a3b10b9657ac7614d35a6a2e202329549040bb20b0e82c9be837db936",
@@ -935,26 +1068,6 @@
       "bytes": 3656535,
       "sha256": "f711fc8e8ddf535388cf19090832fdcee6457c0abf54044c4a930f7c1501f627",
       "status": "copied_without_flagged_structural_issue"
-    },
-    {
-      "path": "mydatasets-dl/cifar10.tar.gz",
-      "bytes": 10637312,
-      "sha256": "2ad41404b1658d3acd0f78e8bee93c2b335451947a17447cebd659988d81a5a0",
-      "status": "incomplete_original_file",
-      "integrity_issue": {
-        "path": "mydatasets-dl/cifar10.tar.gz",
-        "error": "EOFError: Compressed file ended before the end-of-stream marker was reached"
-      }
-    },
-    {
-      "path": "mydatasets-dl/cifar10/cifar-10-python.tar.gz",
-      "bytes": 20021248,
-      "sha256": "d00d856a31cb44dbddb5abc031695ba02c7f2a5c857973911a4d263cf09b2ca7",
-      "status": "incomplete_original_file",
-      "integrity_issue": {
-        "path": "mydatasets-dl/cifar10/cifar-10-python.tar.gz",
-        "error": "EOFError: Compressed file ended before the end-of-stream marker was reached"
-      }
     },
     {
       "path": "mydatasets-dl/fashionmnist/FashionMNIST/raw/t10k-images-idx3-ubyte",
