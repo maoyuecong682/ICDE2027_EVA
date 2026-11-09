@@ -1,0 +1,20 @@
+{
+  "datasets": ["cifar100", "adult", "news", "mnist2mnistm", "House"],
+  "fractions": [0.1, 0.3, 0.5, 0.7],
+  "seed": 42,
+  "scientific_results": true,
+  "split_seed": 48,
+  "comparison_scope": "selected_subset_quality_under_shared_training",
+  "cops_variants": ["wy", "woy"],
+  "cops_models": 10,
+  "cops_prepare_epochs": 30,
+  "dual_prepare_epochs": 200,
+  "eval_epochs": 60,
+  "patience": 10,
+  "batch_size": 128,
+  "regression_bins": 10,
+  "evaluation": "unified",
+  "regression_policy": "binned",
+  "quota_policy": "native",
+  "variants_confirmed": true
+}
