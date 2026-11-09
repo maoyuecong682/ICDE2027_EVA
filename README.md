@@ -4,7 +4,7 @@
 
 | Item | Configuration |
 | --- | --- |
-| GPU | NVIDIA GeForce RTX 5090 D |
+| Target GPU for reproduction | NVIDIA GeForce RTX 3090 |
 | Python | 3.12.3, `/root/miniconda3/bin/python` |
 | CUDA | 12.8 |
 | PyTorch / torchvision | 2.8.0+cu128 / 0.23.0+cu128 |
@@ -24,6 +24,9 @@
 | `/root/autodl-tmp/EVA/baseline/GM-Matching-main/` | GM-Matching baseline |
 | `/root/autodl-tmp/EVA/baseline/dual-pruning-main/exp_cifar/` | DUAL baseline |
 | `/root/autodl-tmp/EVA/data/` | Datasets, splits, and preprocessing caches |
+| `data/` | Original EVA dataset files; see [dataset availability and integrity](data/README.md) |
+| `mydatasets/adult/` | Original Adult train/test CSV files |
+| `mydatasets-dl/` | Original downloaded datasets and archives |
 | `/root/autodl-tmp/eva_output/eva_adapter.py` | Shared dataset loading and model construction |
 | `/root/autodl-tmp/eva_output/prepare_eva_embed.py` | GM-Matching feature generation |
 | `/root/autodl-tmp/eva_output/clip_visual_cpu.py` | CLIP image encoder loader |

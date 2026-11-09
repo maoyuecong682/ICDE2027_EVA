@@ -52,3 +52,22 @@ evaluation/matrix/runs/
 *.zip
 *.tar
 *.tar.gz
+
+# Original EVA datasets explicitly included in this repository
+!/data/
+!/data/**
+!/mydatasets/adult/
+!/mydatasets/adult/**
+!/mydatasets-dl/
+!/mydatasets-dl/**
+
+# Keep machine metadata, caches, and credentials excluded inside datasets
+**/__pycache__/
+**/.ipynb_checkpoints/
+**/__MACOSX/
+**/.DS_Store
+**/._*
+**/.env
+**/.env.*
+*.pem
+*.key

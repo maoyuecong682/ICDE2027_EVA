@@ -1,7 +1,8 @@
 #!/bin/bash
-# 训练完成后自动收尾：补评 12 个缺失数据集 + 聚合出 54/54 的 evaluation5090.csv。
+# 训练完成后自动收尾：补评 12 个缺失数据集 + 聚合出 54/54 的 evaluation3090.csv。
 # 由 launch.sh 脱离 SSH 启动；训练进程（pid 在下方）结束后自动继续。
 set -u
+EVA_TOOLS_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 LOG=/root/autodl-tmp/eva_output/logs/finish_pipeline.log
 TRAIN_PID=299423
 DONE=/root/autodl-tmp/eva_output/FINAL_DONE.txt
@@ -28,9 +29,9 @@ log "开始补评缺失数据集：$MISSING"
 bash /root/autodl-tmp/eva_output/eval.sh "$MISSING" >> "$LOG" 2>&1
 
 # 聚合最终表
-log "聚合 evaluation5090.csv ..."
+log "聚合 evaluation3090.csv ..."
 cd /root/autodl-tmp/EVA/evaluation
-/root/miniconda3/bin/python /root/autodl-tmp/eva_output/make_eval5090.py 2>&1 | tee -a "$LOG"
+/root/miniconda3/bin/python "$EVA_TOOLS_DIR/make_eval3090.py" 2>&1 | tee -a "$LOG"
 
 PROG=$(grep -oE '进度\] [0-9]+/18' "$LOG" | tail -1)
 log "===== 收尾完成：$PROG ====="
